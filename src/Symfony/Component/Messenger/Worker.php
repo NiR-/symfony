@@ -42,6 +42,10 @@ class Worker
         }
 
         $this->receiver->receive(function (?Envelope $envelope) {
+            if (\function_exists('pcntl_signal_dispatch')) {
+                pcntl_signal_dispatch();
+            }
+
             if (null === $envelope) {
                 return;
             }
